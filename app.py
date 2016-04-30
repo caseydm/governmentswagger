@@ -15,7 +15,13 @@ class Hotel(db.Model):
     city = db.Column(db.String(80))
     url = db.Column(db.String(80))
 
+    def __init__(self, name, city, url):
+        self.name = name
+        self.city = city
+        self.url = url
+
 db.create_all()
+
 
 # Views
 @app.route('/')
