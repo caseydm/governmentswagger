@@ -19,11 +19,13 @@ class Hotel(db.Model):
     name = db.Column(db.String(200))
     city = db.Column(db.String(80))
     url = db.Column(db.String(80))
+    parking = db.Column(db.String(200))
 
-    def __init__(self, name="", city="", url=""):
+    def __init__(self, name="", city="", url="", parking=""):
         self.name = name
         self.city = city
         self.url = url
+        self.parking = parking
 
 db.create_all()
 
