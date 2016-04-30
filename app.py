@@ -1,16 +1,21 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
+from flask.ext.stormpath import StormpathManager, current_user
 
 app = Flask(__name__)
 
 # config
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+app.config['STORMPATH_API_KEY_ID'] = os.environ.get('STORMPATH_API_KEY_ID')
+app.config['STORMPATH_API_KEY_SECRET'] = os.environ.get('STORMPATH_API_KEY_SECRET')
+app.config['STORMPATH_APPLICATION'] = os.environ.get('STORMPATH_APPLICATION')
 
 db = SQLAlchemy(app)
+stormpath_manager = StormpathManager(app)
 
 
 # Models
@@ -46,9 +51,18 @@ class Hotel(db.Model):
 db.create_all()
 
 # admin setup
+class MyModelView(ModelView):
+
+    def is_accessible(self):
+        return current_user.is_authenticated()
+
+    def inaccessible_callback(self, name, **kwargs):
+        # redirect to login page if user doesn't have access
+        return redirect('/login')
+
 admin = Admin(app, name='GovSwag Admin', template_mode='bootstrap3')
-admin.add_view(ModelView(Hotel, db.session))
-admin.add_view(ModelView(Location, db.session))
+admin.add_view(MyModelView(Hotel, db.session))
+admin.add_view(MyModelView(Location, db.session))
 
 
 # Views
