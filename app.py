@@ -1,6 +1,8 @@
+import os
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
-import os
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 app = Flask(__name__)
 
@@ -21,6 +23,10 @@ class Hotel(db.Model):
         self.url = url
 
 db.create_all()
+
+# admin setup
+admin = Admin(app, name='Hotels', template_mode='bootstrap3')
+admin.add_view(ModelView(Hotel, db.session))
 
 
 # Views
