@@ -12,6 +12,8 @@ isodate==0.5.4
 itsdangerous==0.24
 Jinja2==2.8
 MarkupSafe==0.23
+oauth2client==1.2
+oauthlib==1.1.0
 psycopg2==2.6.1
 PyDispatcher==2.0.5
 PyJWT==1.4.0

@@ -48,7 +48,6 @@ class Hotel(db.Model):
         self.parking = parking
         self.location_id = location_id
 
-db.create_all()
 
 # admin setup
 class MyModelView(ModelView):
