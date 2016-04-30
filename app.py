@@ -1,5 +1,4 @@
-import os
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
@@ -8,11 +7,7 @@ from flask.ext.stormpath import StormpathManager, current_user
 app = Flask(__name__)
 
 # config
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-app.config['STORMPATH_API_KEY_ID'] = os.environ.get('STORMPATH_API_KEY_ID')
-app.config['STORMPATH_API_KEY_SECRET'] = os.environ.get('STORMPATH_API_KEY_SECRET')
-app.config['STORMPATH_APPLICATION'] = os.environ.get('STORMPATH_APPLICATION')
+app.config.from_object('config')
 
 db = SQLAlchemy(app)
 stormpath_manager = StormpathManager(app)
