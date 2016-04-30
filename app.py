@@ -28,7 +28,7 @@ class Hotel(db.Model):
 db.create_all()
 
 # admin setup
-admin = Admin(app, name='Hotels', template_mode='bootstrap3')
+admin = Admin(app, name='GovSwag Admin', template_mode='bootstrap3')
 admin.add_view(ModelView(Hotel, db.session))
 
 
