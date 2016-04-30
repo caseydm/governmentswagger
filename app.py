@@ -35,7 +35,8 @@ admin.add_view(ModelView(Hotel, db.session))
 # Views
 @app.route('/')
 def index():
-    return render_template('index.html')
+    hotels = Hotel.query.all()
+    return render_template('index.html', hotels=hotels)
 
 if __name__ == '__main__':
     app.run(debug=True)
