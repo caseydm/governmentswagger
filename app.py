@@ -62,9 +62,16 @@ admin.add_view(MyModelView(Location, db.session))
 # Views
 @app.route('/')
 def index():
-    location = Location.query.filter_by(city='Atlanta, GA').first()
+    locations = Location.query.all()
+    return render_template('index.html', locations=locations)
+
+
+@app.route('/<city>')
+def hotel_list(city):
+    location = Location.query.filter_by(city=city).first()
     hotels = location.hotels
-    return render_template('index.html', hotels=hotels)
+    return render_template('hotels.html', hotels=hotels)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

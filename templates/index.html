@@ -2,25 +2,9 @@
 {% block title %}Government Swagger{% endblock %}
 
 {% block body %}
-<ol class="breadcrumb">
-  <li><a href="#">Cities</a></li>
-  <li class="active">Atlanta, GA</li>
-</ol>
 
-{% for hotel in hotels %}
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">{{ hotel.name }}</h3>
-  </div>
-  <div class="panel-body">
-    <!-- List group -->
-  <ul class="list-group">
-    <li class="list-group-item"><a href="{{ hotel.url }}">Link</a></li>
-    <li class="list-group-item">Parking: {{ hotel.parking }}</li>
-  </ul>
-
-  </div>
-</div>
+{% for location in locations %}
+<p><a href="{{ url_for('hotel_list', city=location) }}">{{ location }}</a></p>
 {% endfor %}
 
 <br/>
