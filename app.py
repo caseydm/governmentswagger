@@ -19,12 +19,12 @@ class Location(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String(80), unique=True)
-    url_slug = db.Column(db.String(80), unique=True)
+    city_url_slug = db.Column(db.String(80), unique=True)
     hotels = db.relationship('Hotel', backref='location', lazy='dynamic')
 
-    def __init__(self, city="", url_slug=""):
+    def __init__(self, city="", city_url_slug=""):
         self.city = city
-        self.url_slug = url_slug
+        self.city_url_slug = city_url_slug
 
     def __repr__(self):
         return self.city
@@ -72,9 +72,9 @@ def index():
     return render_template('index.html', locations=locations)
 
 
-@app.route('/<url_slug>')
-def hotel_list(url_slug):
-    location = Location.query.filter_by(url_slug=url_slug).first()
+@app.route('/<city_url_slug>')
+def hotel_list(city_url_slug):
+    location = Location.query.filter_by(city_url_slug=city_url_slug).first()
     hotels = location.hotels
     return render_template('hotels.html', location=location, hotels=hotels)
 
