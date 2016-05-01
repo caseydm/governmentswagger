@@ -4,7 +4,7 @@
 {% block body %}
 
 {% for location in locations %}
-<p><a href="{{ url_for('hotel_list', city=location) }}">{{ location }}</a></p>
+<p><a href="{{ url_for('hotel_list', url_slug=location.url_slug) }}">{{ location }}</a></p>
 {% endfor %}
 
 <br/>

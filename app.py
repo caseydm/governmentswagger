@@ -19,10 +19,12 @@ class Location(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String(80), unique=True)
+    url_slug = db.Column(db.String(80), unique=True)
     hotels = db.relationship('Hotel', backref='location', lazy='dynamic')
 
-    def __init__(self, city=""):
+    def __init__(self, city="", url_slug=""):
         self.city = city
+        self.url_slug = url_slug
 
     def __repr__(self):
         return self.city
@@ -55,8 +57,12 @@ class MyModelView(ModelView):
         return redirect('/login')
 
 admin = Admin(app, name='GovSwag Admin', template_mode='bootstrap3')
-admin.add_view(MyModelView(Hotel, db.session))
-admin.add_view(MyModelView(Location, db.session))
+# admin.add_view(MyModelView(Hotel, db.session))
+# admin.add_view(MyModelView(Location, db.session))
+
+# temp admin views while unable to login 
+admin.add_view(ModelView(Hotel, db.session))
+admin.add_view(ModelView(Location, db.session))
 
 
 # Views
@@ -66,11 +72,11 @@ def index():
     return render_template('index.html', locations=locations)
 
 
-@app.route('/<city>')
-def hotel_list(city):
-    location = Location.query.filter_by(city=city).first()
+@app.route('/<url_slug>')
+def hotel_list(url_slug):
+    location = Location.query.filter_by(url_slug=url_slug).first()
     hotels = location.hotels
-    return render_template('hotels.html', hotels=hotels)
+    return render_template('hotels.html', location=location, hotels=hotels)
 
 
 if __name__ == '__main__':
