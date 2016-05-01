@@ -19,6 +19,7 @@ class Location(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     city = db.Column(db.String(80), unique=True)
+    hotels = db.relationship('Hotel', backref='location', lazy='dynamic')
 
     def __init__(self, city=""):
         self.city = city
@@ -35,7 +36,6 @@ class Hotel(db.Model):
     url = db.Column(db.String(80))
     parking = db.Column(db.String(200))
     location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
-    city = db.relationship(Location, backref='Hotel')
 
     def __init__(self, name="", url="", parking="", location_id=""):
         self.name = name
