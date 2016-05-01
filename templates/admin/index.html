@@ -1,0 +1,9 @@
+{% extends 'admin/master.html' %}
+
+{% block body %}
+  {% if current_user.is_authenticated() %}
+  <p><a href="/logout" class="btn btn-primary" role="button">Logout</a></p>
+  {% else %}
+  <p><a href="/login" class="btn btn-primary" role="button">Login</a></p>
+  {% endif %}
+{% endblock %}
