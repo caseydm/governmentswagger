@@ -51,7 +51,7 @@ class MyModelView(ModelView):
         return current_user.is_authenticated()
 
     def inaccessible_callback(self, name, **kwargs):
-        # redirect to login page if user doesn't have access
+        # redirect to login page if user does not have access
         return redirect('/login')
 
 admin = Admin(app, name='GovSwag Admin', template_mode='bootstrap3')

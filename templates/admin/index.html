@@ -1,8 +1,9 @@
 {% extends 'admin/master.html' %}
 
 {% block body %}
+  <p>This is the admin site for the GovSwag application.
   {% if current_user.is_authenticated() %}
-  <p><a href="/logout" class="btn btn-primary" role="button">Logout</a></p>
+  <p><a href="/" class="btn btn-success" role="button">GovSwag Home Page</a>  <a href="/logout" class="btn btn-warning" role="button">Logout</a></p>
   {% else %}
   <p><a href="/login" class="btn btn-primary" role="button">Login</a></p>
   {% endif %}
