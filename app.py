@@ -59,13 +59,8 @@ class MyModelView(ModelView):
         return redirect('/login')
 
 admin = Admin(app, name='GovSwag Admin', template_mode='bootstrap3')
-# admin.add_view(MyModelView(Hotel, db.session))
-# admin.add_view(MyModelView(Location, db.session))
-
-# temp admin views while unable to login 
-admin.add_view(ModelView(Hotel, db.session))
-admin.add_view(ModelView(Location, db.session))
-
+admin.add_view(MyModelView(Hotel, db.session))
+admin.add_view(MyModelView(Location, db.session))
 
 # Views
 @app.route('/')
