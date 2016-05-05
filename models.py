@@ -27,8 +27,9 @@ class Hotel(db.Model):
     name = db.Column(db.String(200), nullable=False)
     url = db.Column(db.String(80))
     free_parking = db.Column(db.Boolean())
-    parking = db.Column(db.String(200))
-    resort_fee = db.Column(db.String(20))
+    parking_cost = db.Column(db.String(200))
+    resort_fee = db.Column(db.Boolean())
+    resort_fee_cost = db.Column(db.String(20))
     location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
 
     def __init__(self, name="", url="", parking="", resort_fee="", location_id="", free_parking=""):
