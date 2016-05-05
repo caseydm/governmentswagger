@@ -12,21 +12,6 @@ db.init_app(app)
 stormpath_manager = StormpathManager(app)
 
 
-# admin setup
-class MyModelView(ModelView):
-
-    def is_accessible(self):
-        return current_user.is_authenticated()
-
-    def inaccessible_callback(self, name, **kwargs):
-        # redirect to login page if user does not have access
-        return redirect('/login')
-
-admin = Admin(app, name='GovSwag Admin', template_mode='bootstrap3')
-admin.add_view(MyModelView(Hotel, db.session))
-admin.add_view(MyModelView(Location, db.session))
-
-
 # views
 @app.route('/')
 def index():
@@ -40,6 +25,20 @@ def hotel_list(city_url_slug):
     hotels = location.hotels
     return render_template('hotels.html', location=location, hotels=hotels)
 
+
+# admin setup
+class MyModelView(ModelView):
+
+    def is_accessible(self):
+        return current_user.is_authenticated()
+
+    def inaccessible_callback(self, name, **kwargs):
+        # redirect to login page if user does not have access
+        return redirect('/login')
+
+admin = Admin(app, name='GovSwag Admin', template_mode='bootstrap3')
+admin.add_view(MyModelView(Hotel, db.session))
+admin.add_view(MyModelView(Location, db.session))
 
 if __name__ == '__main__':
     app.run(debug=True)
