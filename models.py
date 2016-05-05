@@ -8,8 +8,8 @@ class Location(db.Model):
     __tablename__ = 'locations'
 
     id = db.Column(db.Integer, primary_key=True)
-    city = db.Column(db.String(80), unique=True)
-    city_url_slug = db.Column(db.String(80), unique=True)
+    city = db.Column(db.String(80), unique=True, nullable=False)
+    city_url_slug = db.Column(db.String(80), unique=True, nullable=False)
     hotels = db.relationship('Hotel', backref='location', lazy='dynamic')
 
     def __init__(self, city="", city_url_slug=""):
@@ -24,9 +24,9 @@ class Hotel(db.Model):
     __tablename__ = 'hotels'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(200))
+    name = db.Column(db.String(200), nullable=False)
     url = db.Column(db.String(80))
-    free_parking = db.Boolean()
+    free_parking = db.Column(db.Boolean())
     parking = db.Column(db.String(200))
     resort_fee = db.Column(db.String(20))
     location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
