@@ -12,10 +12,6 @@ class Location(db.Model):
     city_url_slug = db.Column(db.String(80), unique=True, nullable=False)
     hotels = db.relationship('Hotel', backref='location', lazy='dynamic')
 
-    def __init__(self, city="", city_url_slug=""):
-        self.city = city
-        self.city_url_slug = city_url_slug
-
     def __repr__(self):
         return self.city
 
@@ -31,12 +27,3 @@ class Hotel(db.Model):
     resort_fee = db.Column(db.Boolean())
     resort_fee_cost = db.Column(db.String(20))
     location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
-
-    def __init__(self, name="", url="", free_parking="", parking_cost="", resort_fee="", resort_fee_cost="", location_id=""):
-        self.name = name
-        self.url = url
-        self.free_parking = free_parking
-        self.parking_cost = parking_cost
-        self.resort_fee = resort_fee
-        self.resort_fee_cost = resort_fee_cost
-        self.location_id = location_id
