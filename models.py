@@ -26,13 +26,15 @@ class Hotel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200))
     url = db.Column(db.String(80))
+    free_parking = db.Boolean()
     parking = db.Column(db.String(200))
     resort_fee = db.Column(db.String(20))
     location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
 
-    def __init__(self, name="", url="", parking="", resort_fee="", location_id=""):
+    def __init__(self, name="", url="", parking="", resort_fee="", location_id="", free_parking=""):
         self.name = name
         self.url = url
         self.parking = parking
         self.resort_fee = resort_fee
         self.location_id = location_id
+        self.free_parking = free_parking

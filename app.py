@@ -48,4 +48,4 @@ admin.add_view(MyModelView(Hotel, db.session))
 admin.add_view(MyModelView(Location, db.session))
 
 if __name__ == '__main__':
-    manager.run(debug=True)
+    manager.run()
