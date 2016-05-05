@@ -3,6 +3,8 @@ from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask.ext.stormpath import StormpathManager, current_user
 from models import db, Hotel, Location
+from flask_script import Manager
+from flask_migrate import Migrate, MigrateCommand
 
 
 # app setup
@@ -10,6 +12,11 @@ app = Flask(__name__)
 app.config.from_object('config')
 db.init_app(app)
 stormpath_manager = StormpathManager(app)
+
+# db migrate
+migrate = Migrate(app, db)
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
 
 
 # views
@@ -41,4 +48,4 @@ admin.add_view(MyModelView(Hotel, db.session))
 admin.add_view(MyModelView(Location, db.session))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    manager.run(debug=True)
