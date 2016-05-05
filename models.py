@@ -32,10 +32,11 @@ class Hotel(db.Model):
     resort_fee_cost = db.Column(db.String(20))
     location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
 
-    def __init__(self, name="", url="", parking="", resort_fee="", location_id="", free_parking=""):
+    def __init__(self, name="", url="", free_parking="", parking_cost="", resort_fee="", resort_fee_cost="", location_id=""):
         self.name = name
         self.url = url
-        self.parking = parking
-        self.resort_fee = resort_fee
-        self.location_id = location_id
         self.free_parking = free_parking
+        self.parking_cost = parking_cost
+        self.resort_fee = resort_fee
+        self.resort_fee_cost = resort_fee_cost
+        self.location_id = location_id
