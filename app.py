@@ -44,8 +44,10 @@ class MyModelView(ModelView):
         return redirect('/login')
 
 admin = Admin(app, name='GovSwag Admin', template_mode='bootstrap3')
-admin.add_view(MyModelView(Hotel, db.session))
-admin.add_view(MyModelView(Location, db.session))
+#admin.add_view(MyModelView(Hotel, db.session))
+#admin.add_view(MyModelView(Location, db.session))
+admin.add_view(ModelView(Hotel, db.session))
+admin.add_view(ModelView(Location, db.session))
 
 if __name__ == '__main__':
     manager.run()

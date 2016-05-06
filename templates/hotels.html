@@ -16,11 +16,14 @@
     <!-- List group -->
   <ul class="list-group">
     <li class="list-group-item"><a href="{{ hotel.url }}">Link</a></li>
-    {% if hotel.free_parking == true %}
+    {% if hotel.free_parking == True %}
     <li class="list-group-item">Free Parking</li>
+    {% else %}
+    <li class="list-group-item">Parking: {{ hotel.parking_cost }}</li>
     {% endif %}
-    <li class="list-group-item">Parking: {{ hotel.parking }}</li>
-    <li class="list-group-item">Resort Fee: {{ hotel.resort_fee }}</li>
+    {% if hotel.resort_fee == True %}
+    <li class="list-group-item">Resort Fee: {{ hotel.resort_fee_cost }}</li>
+    {% endif %}
   </ul>
 
   </div>
