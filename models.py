@@ -29,4 +29,5 @@ class Hotel(db.Model):
     valet_parking_cost = db.Column(db.String(200))
     resort_fee = db.Column(db.Boolean())
     resort_fee_cost = db.Column(db.String(20))
+    star_rating = db.Column(db.Integer())
     location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
