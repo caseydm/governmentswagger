@@ -16,6 +16,9 @@
     <!-- List group -->
   <ul class="list-group">
     <li class="list-group-item"><a href="{{ hotel.url }}">Link</a></li>
+    {% if hotel.free_parking == true %}
+    <li class="list-group-item">Free Parking</li>
+    {% endif %}
     <li class="list-group-item">Parking: {{ hotel.parking }}</li>
     <li class="list-group-item">Resort Fee: {{ hotel.resort_fee }}</li>
   </ul>
