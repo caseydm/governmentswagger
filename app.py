@@ -13,11 +13,6 @@ app.config.from_object('config')
 db.init_app(app)
 stormpath_manager = StormpathManager(app)
 
-# db migrate
-migrate = Migrate(app, db)
-manager = Manager(app)
-manager.add_command('db', MigrateCommand)
-
 
 # views
 @app.route('/')
@@ -31,6 +26,12 @@ def hotel_list(city_url_slug):
     location = Location.query.filter_by(city_url_slug=city_url_slug).first()
     hotels = location.hotels
     return render_template('hotels.html', location=location, hotels=hotels)
+
+
+# db migrate
+migrate = Migrate(app, db)
+manager = Manager(app)
+manager.add_command('db', MigrateCommand)
 
 
 # admin setup
