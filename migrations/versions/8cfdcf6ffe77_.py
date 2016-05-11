@@ -1,13 +1,13 @@
 """empty message
 
-Revision ID: 526673f9f81f
+Revision ID: 8cfdcf6ffe77
 Revises: None
-Create Date: 2016-05-04 20:51:56.097356
+Create Date: 2016-05-10 20:29:18.441551
 
 """
 
 # revision identifiers, used by Alembic.
-revision = '526673f9f81f'
+revision = '8cfdcf6ffe77'
 down_revision = None
 
 from alembic import op
@@ -29,8 +29,13 @@ def upgrade():
     sa.Column('name', sa.String(length=200), nullable=False),
     sa.Column('url', sa.String(length=80), nullable=True),
     sa.Column('free_parking', sa.Boolean(), nullable=True),
-    sa.Column('parking', sa.String(length=200), nullable=True),
-    sa.Column('resort_fee', sa.String(length=20), nullable=True),
+    sa.Column('self_parking', sa.Boolean(), nullable=True),
+    sa.Column('self_parking_cost', sa.String(length=200), nullable=True),
+    sa.Column('valet_parking', sa.Boolean(), nullable=True),
+    sa.Column('valet_parking_cost', sa.String(length=200), nullable=True),
+    sa.Column('resort_fee', sa.Boolean(), nullable=True),
+    sa.Column('resort_fee_cost', sa.String(length=20), nullable=True),
+    sa.Column('star_rating', sa.Integer(), nullable=True),
     sa.Column('location_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['location_id'], ['locations.id'], ),
     sa.PrimaryKeyConstraint('id')
