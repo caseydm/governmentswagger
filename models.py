@@ -35,4 +35,7 @@ class Hotel(db.Model):
     free_wifi = db.Column(db.Boolean())
     wifi_cost = db.Column(db.Numeric(10, 2))
     star_rating = db.Column(db.Integer())
+    address = db.Column(db.String(300))
+    phone = db.Column(db.String(30))
+    trip_advisor_rank = db.Column(db.Integer())
     location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
