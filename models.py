@@ -21,7 +21,10 @@ class Hotel(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.Text())
+    govt_rate_offered = db.Column(db.Boolean())
     url = db.Column(db.String(80))
+    reservation_url = db.Column(db.String(80))
     free_parking = db.Column(db.Boolean())
     self_parking = db.Column(db.Boolean())
     self_parking_cost = db.Column(db.Numeric(10, 2))
