@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
-from flask.ext.stormpath import StormpathManager, current_user
+from flask.ext.stormpath import StormpathManager, current_user, login_required
 from models import db, Hotel, Location
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
@@ -26,6 +26,12 @@ def hotel_list(city_url_slug):
     location = Location.query.filter_by(city_url_slug=city_url_slug).first()
     hotels = location.hotels
     return render_template('hotels.html', location=location, hotels=hotels)
+
+
+@app.route('/upload', methods=['GET', 'POST'])
+@login_required
+def upload():
+    return render_template('upload.html')
 
 
 # db migrate
