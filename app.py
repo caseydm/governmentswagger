@@ -60,7 +60,8 @@ def upload():
         db.session.commit()
         return redirect('/upload')
     else:
-        images = Image.query.all()
+        hotel = Hotel.query.get(3)
+        images = hotel.images
     return render_template('upload.html', form=form, images=images)
 
 
