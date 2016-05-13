@@ -8,14 +8,5 @@
     {{ form.file }}
     <input type="submit">
 </form>
-{% for location in locations %}
-    <p><b>{{ location }}</b></p>
-    {% for hotel in location.hotels %}
-        <p>{{ hotel.name }}</p>
-    {% endfor %}
-{% endfor %}
-{% for file in files %}
-{{ file }}
-{% endfor %}
 </body>
 </html>
