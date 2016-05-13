@@ -31,20 +31,14 @@ def hotel_list(city_url_slug):
 @app.route('/upload', methods=['GET', 'POST'])
 @login_required
 def upload():
-<<<<<<< HEAD
     form = ImageForm()
     if form.validate_on_submit():
         s3 = boto3.resource('s3')
-        file = request.files['file']
-        filename = secure_filename(file.filename)
         s3.Object('governmentswagger', filename).put(Body=open(file, 'rb'))
         return redirect('/upload')
     else:
         filename = None
     return render_template('upload.html', form=form)
-=======
-    return render_template('upload.html')
->>>>>>> parent of a59cf66... basic working upload form
 
 
 # db migrate
