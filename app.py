@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request
+from flask import Flask, render_template, redirect, request, flash
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask.ext.stormpath import StormpathManager, current_user, login_required
@@ -56,7 +56,8 @@ def upload():
         url = 'http://s3.amazonaws.com/governmentswagger/' + filename
         name = form.name.data
         hotel = form.hotel.data
-        image = Image(name, url, hotel)
+        key = filename
+        image = Image(name, url, key, hotel)
         db.session.add(image)
         db.session.commit()
         return redirect('/upload')
@@ -69,10 +70,18 @@ def upload():
 @app.route('/upload/delete/<image_id>', methods=['GET'])
 @login_required
 def delete_image(image_id):
+    # get image object from db
     image = Image.query.filter_by(id=image_id).first_or_404()
 
+    # delete from S3
+    s3 = boto3.resource('s3')
+    obj = s3.Object('governmentswagger', image.key)
+    obj.delete()
+
+    # delete from db
     db.session.delete(image)
     db.session.commit()
+    flash('Image deleted from database and S3', 'success')
     return redirect('/upload')
 
 
