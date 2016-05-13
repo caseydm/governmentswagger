@@ -44,7 +44,13 @@ class Hotel(db.Model):
 
 class Image(db.Model):
     __tablename__ = 'images'
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(200))
     url = db.Column(db.String(250), nullable=False)
     hotel_id = db.Column(db.Integer, db.ForeignKey('hotels.id'))
+
+    def __init__(self, name, url, hotel_id):
+        self.name = name
+        self.url = url
+        self.hotel_id = hotel_id

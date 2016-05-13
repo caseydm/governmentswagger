@@ -50,7 +50,7 @@ def upload():
         # save image info to database
         url = 'http://s3.amazonaws.com/governmentswagger/' + filename
         name = filename
-        hotel = Hotel.query.filter_by(name='The St. Regis Atlanta')
+        hotel = Hotel.query.get(4)
         image = Image(name, url, hotel.id)
         db.session.add(image)
         db.session.commit()
