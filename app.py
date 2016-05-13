@@ -5,6 +5,10 @@ from flask.ext.stormpath import StormpathManager, current_user, login_required
 from models import db, Hotel, Location
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
+from werkzeug import secure_filename
+from flask_wtf.file import FileField
+from flask_wtf import Form
+import boto3
 
 
 # app setup
@@ -28,16 +32,22 @@ def hotel_list(city_url_slug):
     return render_template('hotels.html', location=location, hotels=hotels)
 
 
+class ImageForm(Form):
+    file = FileField('Your image')
+
+
 @app.route('/upload', methods=['GET', 'POST'])
 @login_required
 def upload():
     form = ImageForm()
     if form.validate_on_submit():
-        s3 = boto3.resource('s3')
-        s3.Object('governmentswagger', filename).put(Body=open(file, 'rb'))
+        s3 = boto3.client('s3')
+        file = request.files[form.file.name]
+        # filename = secure_filename(form.file.data.filename)
+        s3.put_object(Body=file, Bucket='governmentswagger', Key=file.filename)
         return redirect('/upload')
     else:
-        filename = None
+        file = None
     return render_template('upload.html', form=form)
 
 
