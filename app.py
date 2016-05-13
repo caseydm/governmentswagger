@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask.ext.stormpath import StormpathManager, current_user, login_required
@@ -40,10 +40,11 @@ class ImageForm(Form):
 @login_required
 def upload():
     form = ImageForm()
-    s3 = boto3.client('s3')
     if form.validate_on_submit():
-        filename = secure_filename(form.file.data.filename)
-        s3.upload_file(filename, 'governmentswagger', filename)
+        s3 = boto3.resource('s3')
+        file = request.files['file']
+        filename = secure_filename(file.filename)
+        s3.Object('governmentswagger', filename).put(Body=open(file, 'rb'))
         return redirect('/upload')
     else:
         filename = None
