@@ -41,7 +41,7 @@ class ImageForm(Form):
 
 # upload image and list images
 @app.route('/upload', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def upload():
     form = ImageForm()
     if form.validate_on_submit():
@@ -67,7 +67,7 @@ def upload():
 
 # delete image
 @app.route('/upload/delete/<image_id>', methods=['GET'])
-#@login_required
+@login_required
 def delete_image(image_id):
     image = Image.query.filter_by(id=image_id).first_or_404()
 
