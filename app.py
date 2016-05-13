@@ -39,12 +39,13 @@ class ImageForm(Form):
     hotel = SelectField('Hotel', choices=[('3', 'St Croix'), ('4', 'Sheraton')])
 
 
+# upload image and list images
 @app.route('/upload', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def upload():
     form = ImageForm()
     if form.validate_on_submit():
-        images = None
+
         # save file to S3
         s3 = boto3.client('s3')
         file = request.files[form.file.name]
@@ -60,9 +61,19 @@ def upload():
         db.session.commit()
         return redirect('/upload')
     else:
-        hotel = Hotel.query.get(3)
-        images = hotel.images
-    return render_template('upload.html', form=form, images=images)
+        hotels = Hotel.query.all()
+    return render_template('upload.html', form=form, hotels=hotels)
+
+
+# delete image
+@app.route('/upload/delete/<image_id>', methods=['GET'])
+#@login_required
+def delete_image(image_id):
+    image = Image.query.filter_by(id=image_id).first_or_404()
+
+    db.session.delete(image)
+    db.session.commit()
+    return redirect('/upload')
 
 
 # db migrate
