@@ -43,8 +43,8 @@ def upload():
     if form.validate_on_submit():
         s3 = boto3.client('s3')
         file = request.files[form.file.name]
-        # filename = secure_filename(form.file.data.filename)
-        s3.put_object(Body=file, Bucket='governmentswagger', Key=file.filename)
+        filename = secure_filename(file.filename)
+        s3.put_object(Body=file, Bucket='governmentswagger', Key=filename)
         return redirect('/upload')
     else:
         file = None
