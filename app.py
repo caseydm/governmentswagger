@@ -8,6 +8,7 @@ from flask_migrate import Migrate, MigrateCommand
 from werkzeug import secure_filename
 from flask_wtf.file import FileField
 from flask_wtf import Form
+from wtforms import StringField, SelectField
 import boto3
 
 
@@ -33,7 +34,9 @@ def hotel_list(city_url_slug):
 
 
 class ImageForm(Form):
+    name = StringField('Name')
     file = FileField('Your image')
+    hotel = SelectField('Hotel', choices=[('4', 'St Croix'), ('5', 'Sheraton')])
 
 
 @app.route('/upload', methods=['GET', 'POST'])

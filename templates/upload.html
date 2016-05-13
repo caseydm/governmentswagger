@@ -1,15 +1,37 @@
-<html>
-<head>
-<title>Upload</title>
-</head>
-<body>
-<form method="post" enctype="multipart/form-data">
-    {{ form.hidden_tag() }}
-    {{ form.file }}
-    <input type="submit">
-</form>
+{% extends "base.html" %}
+{% block title %}Upload{% endblock %}
+
+{% block body %}
+
+<div class="panel panel-primary">
+    <div class="panel-heading"> <h3 class="panel-title">Image Form</h3> </div>
+    <div class="panel-body">
+        <div class="bs-example" data-example-id="basic-forms"> 
+            <form method="post" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+                <div class="form-group"> 
+                    <label for="name">Name</label> 
+                    {{ form.name(class_="form-control") }}
+                </div> 
+                <div class="form-group"> 
+                    <label for="hotel">Hotel</label> 
+                    {{ form.hotel(class_="form-control")  }}
+                </div> 
+                <div class="form-group"> 
+                    <label for="exampleInputFile">File input</label> 
+                    {{ form.file(class_="file") }}
+                </div> 
+            <button type="submit" class="btn btn-default">Submit</button> 
+            </form> 
+        </div>
+    </div>
+</div>
+
 {% for image in images %}
 <p><img src="{{ image.url }}" height="200"/></p>
 {% endfor %}
-</body>
-</html>
+
+<br/>
+<p><a href="{{ url_for('hotel.index_view') }}">Admin</a></p>
+{% endblock %}
+
