@@ -46,7 +46,8 @@ def upload():
         s3.Object('governmentswagger', filename).put(Body=open(filename, 'rb'))
     else:
         filename = None
-    return render_template('upload.html', form=form)
+        locations = Location.query.all()
+    return render_template('upload.html', form=form, locations=locations)
 
 
 # db migrate
