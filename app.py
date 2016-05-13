@@ -41,6 +41,7 @@ class ImageForm(Form):
 def upload():
     form = ImageForm()
     if form.validate_on_submit():
+        images = None
         # save file to S3
         s3 = boto3.client('s3')
         file = request.files[form.file.name]
@@ -56,10 +57,8 @@ def upload():
         db.session.commit()
         return redirect('/upload')
     else:
-        s3 = boto3.resource('s3')
-        bucket = s3.Bucket('governmentswagger')
-        keys = bucket.objects.all()
-    return render_template('upload.html', form=form, keys=keys)
+        images = Image.query.all()
+    return render_template('upload.html', form=form, images=images)
 
 
 # db migrate

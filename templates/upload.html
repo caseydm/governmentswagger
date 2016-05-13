@@ -8,9 +8,8 @@
     {{ form.file }}
     <input type="submit">
 </form>
-{% for key in keys %}
-<p>{{ url }}</p>
+{% for image in images %}
+<p><img src="{{ image.url }}" height="200"/></p>
 {% endfor %}
-<img src="http://s3.amazonaws.com/governmentswagger/Casey%20Promotion-0073.jpg"/>
 </body>
 </html>
