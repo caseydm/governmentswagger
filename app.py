@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, request
 from flask_admin import Admin
 from flask_admin.contrib.sqla import ModelView
 from flask.ext.stormpath import StormpathManager, current_user, login_required
-from models import db, Hotel, Location
+from models import db, Hotel, Location, Image
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from werkzeug import secure_filename
@@ -40,12 +40,20 @@ class ImageForm(Form):
 @login_required
 def upload():
     form = ImageForm()
-    keys = None
     if form.validate_on_submit():
+        # save file to S3
         s3 = boto3.client('s3')
         file = request.files[form.file.name]
         filename = secure_filename(file.filename)
         s3.put_object(Body=file, Bucket='governmentswagger', Key=filename)
+
+        # save image info to database
+        url = 'http://s3.amazonaws.com/governmentswagger/' + filename
+        name = filename
+        hotel = Hotel.query.filter_by(name='The St. Regis Atlanta')
+        image = Image(name, url, hotel.id)
+        db.session.add(image)
+        db.session.commit()
         return redirect('/upload')
     else:
         s3 = boto3.resource('s3')

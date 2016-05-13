@@ -39,3 +39,12 @@ class Hotel(db.Model):
     phone = db.Column(db.String(30))
     trip_advisor_rank = db.Column(db.Integer())
     location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
+    images = db.relationship('Image', backref='hotel', lazy='dynamic')
+
+
+class Image(db.Model):
+    __tablename__ = 'images'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200))
+    url = db.Column(db.String(250), nullable=False)
+    hotel_id = db.Column(db.Integer, db.ForeignKey('hotels.id'))
