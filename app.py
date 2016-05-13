@@ -40,6 +40,7 @@ class ImageForm(Form):
 @login_required
 def upload():
     form = ImageForm()
+    keys = None
     if form.validate_on_submit():
         s3 = boto3.client('s3')
         file = request.files[form.file.name]
@@ -47,8 +48,10 @@ def upload():
         s3.put_object(Body=file, Bucket='governmentswagger', Key=filename)
         return redirect('/upload')
     else:
-        file = None
-    return render_template('upload.html', form=form)
+        s3 = boto3.resource('s3')
+        bucket = s3.Bucket('governmentswagger')
+        keys = bucket.objects.all()
+    return render_template('upload.html', form=form, keys=keys)
 
 
 # db migrate
