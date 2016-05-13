@@ -36,7 +36,7 @@ def hotel_list(city_url_slug):
 class ImageForm(Form):
     name = StringField('Name')
     file = FileField('Your image')
-    hotel = SelectField('Hotel', choices=[('4', 'St Croix'), ('5', 'Sheraton')])
+    hotel = SelectField('Hotel', choices=[('3', 'St Croix'), ('4', 'Sheraton')])
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -53,9 +53,9 @@ def upload():
 
         # save image info to database
         url = 'http://s3.amazonaws.com/governmentswagger/' + filename
-        name = filename
-        hotel = Hotel.query.get(4)
-        image = Image(name, url, hotel.id)
+        name = form.name.data
+        hotel = form.hotel.data
+        image = Image(name, url, hotel)
         db.session.add(image)
         db.session.commit()
         return redirect('/upload')
