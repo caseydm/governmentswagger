@@ -8,7 +8,8 @@ from flask_migrate import Migrate, MigrateCommand
 from werkzeug import secure_filename
 from flask_wtf.file import FileField
 from flask_wtf import Form
-from wtforms import StringField, QuerySelectField
+from wtforms import StringField
+from wtforms.ext.sqlalchemy.fields import QuerySelectField
 import boto3
 
 
@@ -28,8 +29,10 @@ def index():
 
 @app.route('/<city_url_slug>')
 def hotel_list(city_url_slug):
+    hotels = ''
     location = Location.query.filter_by(city_url_slug=city_url_slug).first()
-    hotels = location.hotels
+    if location:
+        hotels = location.hotels
     return render_template('hotels.html', location=location, hotels=hotels)
 
 
