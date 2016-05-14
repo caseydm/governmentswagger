@@ -55,9 +55,9 @@ def upload():
         # save image info to database
         url = 'http://s3.amazonaws.com/governmentswagger/' + filename
         name = form.name.data
-        hotel = form.hotel.data
+        hotel = Hotel.query.get(1)
         key = filename
-        image = Image(name, url, key, hotel)
+        image = Image(name, url, key, hotel.id)
         db.session.add(image)
         db.session.commit()
         return redirect('/upload')
