@@ -13,6 +13,9 @@
     <h3 class="panel-title">{{ hotel.name }}</h3>
   </div>
   <div class="panel-body">
+  {% for image in hotel.images %}
+  <img src="{{ image.url }}" alt="{{ image.name }}" width=300>
+  {% endfor %}
     <!-- List group -->
   <ul class="list-group">
     <li class="list-group-item"><a href="{{ hotel.url }}">Link</a></li>
