@@ -1,13 +1,20 @@
-.panel-image {
-    padding: 0;
-    margin: 0;
-}
 .hotel-panel {
     padding-top: 0;
     padding-bottom: 0;
+}
+.panel-image {
+    padding: 0;
+    margin: 0;
 }
 .rate {
     display: inline-block;
     vertical-align: middle;
     float: none;
+}
+.image {
+    float: left;
+    margin-right: 15px;
+}
+.good {
+    color: green;
 }
