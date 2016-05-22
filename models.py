@@ -49,6 +49,7 @@ class Image(db.Model):
     name = db.Column(db.String(200))
     url = db.Column(db.String(250), nullable=False)
     key = db.Column(db.String(200), nullable=False)
+    cover_image = db.Column(db.Boolean())
     hotel_id = db.Column(db.Integer, db.ForeignKey('hotels.id'))
 
     def __init__(self, name, url, key, hotel_id):
