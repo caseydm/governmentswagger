@@ -8,7 +8,7 @@ from flask_migrate import Migrate, MigrateCommand
 from werkzeug import secure_filename
 from flask_wtf.file import FileField
 from flask_wtf import Form
-from wtforms import StringField
+from wtforms import StringField, BooleanField
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 import boto3
 
@@ -43,6 +43,7 @@ def hotel_query():
 class ImageForm(Form):
     name = StringField('Name')
     file = FileField('Your image')
+    cover_image = BooleanField('Cover Image')
     hotel = QuerySelectField(query_factory=hotel_query, get_label='name', allow_blank=True)
 
 
@@ -63,8 +64,9 @@ def upload():
         url = 'http://s3.amazonaws.com/governmentswagger/' + filename
         name = form.name.data
         hotel = form.hotel.data
+        cover_image = form.cover_image.data
         key = filename
-        image = Image(name, url, key, hotel.id)
+        image = Image(name, url, key, cover_image, hotel.id)
         db.session.add(image)
         db.session.commit()
         return redirect('/upload')
