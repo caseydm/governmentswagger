@@ -2,43 +2,6 @@
 {% block title %}Government Swagger{% endblock %}
 
 {% block body %}
-{# <ol class="breadcrumb">
-  <li><a href="/">Cities</a></li>
-  <li class="active">{{ location.city }}</li>
-</ol> #}
-
-{# {% for hotel in hotels %}
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">{{ hotel.name }}</h3>
-  </div>
-  <div class="panel-body">
-  {% for image in hotel.images %}
-    <img src="{{ image.url }}" alt="{{ image.name }}" width=300>
-  {% endfor %}
-    <!-- List group -->
-  <ul class="list-group">
-    <li class="list-group-item"><a href="{{ hotel.url }}">Link</a></li>
-    {% if hotel.free_parking == true %}
-    <li class="list-group-item">Free Parking</li>
-    {% endif %}
-    {% if hotel.self_parking == true %}
-    <li class="list-group-item">Self Parking: {{ hotel.self_parking_cost }}</li>
-    {% endif %}
-    {% if hotel.valet_parking == true %}
-    <li class="list-group-item">Valet Parking: {{ hotel.valet_parking_cost }}</li>
-    {% endif %}
-    {% if hotel.resort_fee == true %}
-    <li class="list-group-item">Resort Fee: {{ hotel.resort_fee_cost }}</li>
-    {% else %}
-    <li class="list-group-item">No Resort Fee</li>
-    {% endif %}
-    <li class="list-group-item">Star Rating: {{ hotel.star_rating }}</li>
-  </ul>
-
-  </div>
-</div>
-{% endfor %} #}
 
 <h3>{{ location.city }} Government Rate Hotels</h3>
 <br>
@@ -54,7 +17,7 @@
                 {% endif %}
               {% endfor %}
               <h4><a href="#">{{ hotel.name }}</a></h4>
-              <div class="stars"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
+              <div class="stars">{% for i in range(0, hotel.star_rating) %}<span>&#9733;</span>{% endfor %}</div>
               <p>Located within walking distance to Lenox Mall, this Buckhead hotel offers 365 spacious rooms and easy access to the city's best shopping, dining, and attractions.</p>
               <p class="good">Free parking &bull; Free WiFi</p>
             </div>
