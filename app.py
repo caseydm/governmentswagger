@@ -33,7 +33,7 @@ def hotel_list(city_url_slug):
     location = Location.query.filter_by(city_url_slug=city_url_slug).first()
     if location:
         hotels = location.hotels
-    return render_template('hotels.html', location=location, hotels=hotels)
+    return render_template('hotel_list.html', location=location, hotels=hotels)
 
 
 def hotel_query():
