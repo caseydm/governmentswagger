@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Upload{% endblock %}
+{% block title %}Admin Images{% endblock %}
 
 {% block body %}
 
@@ -41,9 +41,7 @@
     <div class="thumbnail">
       <img src="{{ image.url }}" alt="{{ image.name }}">
       <div class="caption">
-        <h3>Thumbnail label</h3>
-        <p>...</p>
-        <p><a href="{{ url_for('admin_delete_image', image_id=image.id) }}" class="btn btn-primary" role="button">Delete Image</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+        <p><a href="{{ url_for('admin_delete_image', image_id=image.id) }}" class="btn btn-primary" role="button">Delete</a>
       </div>
     </div>
     {% endfor %}
