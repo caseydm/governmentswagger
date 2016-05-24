@@ -48,9 +48,9 @@ class ImageForm(Form):
 
 
 # upload image and list images
-@app.route('/upload', methods=['GET', 'POST'])
+@app.route('/admin/images', methods=['GET', 'POST'])
 @login_required
-def upload():
+def admin_images():
     form = ImageForm()
     if form.validate_on_submit():
 
@@ -69,16 +69,16 @@ def upload():
         image = Image(name, url, key, cover_image, hotel.id)
         db.session.add(image)
         db.session.commit()
-        return redirect('/upload')
+        return redirect('/admin/images')
     else:
         hotels = Hotel.query.all()
-    return render_template('upload.html', form=form, hotels=hotels)
+    return render_template('admin/images.html', form=form, hotels=hotels)
 
 
 # delete image
-@app.route('/upload/delete/<image_id>', methods=['GET'])
+@app.route('/admin/images/delete/<image_id>', methods=['GET'])
 @login_required
-def delete_image(image_id):
+def admin_delete_image(image_id):
     # get image object from db
     image = Image.query.filter_by(id=image_id).first_or_404()
 
@@ -91,7 +91,7 @@ def delete_image(image_id):
     db.session.delete(image)
     db.session.commit()
     flash('Image deleted from database and S3', 'success')
-    return redirect('/upload')
+    return redirect('/admin/images')
 
 
 # db migrate

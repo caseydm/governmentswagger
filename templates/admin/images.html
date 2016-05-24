@@ -43,7 +43,7 @@
       <div class="caption">
         <h3>Thumbnail label</h3>
         <p>...</p>
-        <p><a href="{{ url_for('delete_image', image_id=image.id) }}" class="btn btn-primary" role="button">Delete Image</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+        <p><a href="{{ url_for('admin_delete_image', image_id=image.id) }}" class="btn btn-primary" role="button">Delete Image</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
       </div>
     </div>
     {% endfor %}
